@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" parallel="classes" thread-count="3">
+    <test verbose="2" preserve-order="true" name="D:/IntelliJProject/Turkcell/Turkcell_Scenario _1/Turkcel_1">
+        <classes>
+            <class name="Test_Scenario.T0101_CategorySelectionPageCheck"></class>
+
+            <class name="Test_Scenario.T0102_HomePagePopulerCategoryControl"></class>
+
+            <class name="Test_Scenario.T0103_ControlOfSearchBar"></class>
+
+            <class name="Test_Scenario.T0104_LoginWithTheLoginScreen"></class>
+
+            <class name="Test_Scenario.T0201_CheckingClickedAndIncomingProduct"></class>
+
+            <class name="Test_Scenario.T0202_IncraseProductAndPriceBasket"></class>
+
+            <class name="Test_Scenario.T0301_ComputerTabletCategorySortProductHighestPrice"></class>
+
+            <class name="Test_Scenario.T0302_ComputerTabletCategorySortProductLowestPrice"></class>
+
+        </classes>
+    </test>
+</suite>
