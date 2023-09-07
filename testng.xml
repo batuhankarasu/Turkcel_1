@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel="classes" thread-count="3">
+<suite name="All Test Suite" parallel="classes" thread-count="1">
     <test verbose="2" preserve-order="true" name="D:/IntelliJProject/Turkcell/Turkcell_Scenario _1/Turkcel_1">
         <classes>
             <class name="Test_Scenario.T0101_CategorySelectionPageCheck"></class>

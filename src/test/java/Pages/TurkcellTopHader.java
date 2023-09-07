@@ -3,16 +3,20 @@ package Pages;
 import Base.BasePage;
 import Base.BaseVariable;
 import jdk.jfr.Description;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 public class TurkcellTopHader extends BasePage {
     public TurkcellTopHader(WebDriver driver) {
         super(driver);
     }
+    Logger logger = LogManager.getLogger();
 
 
     @FindBy(xpath = "//input[@id=\"search-header\"]")
@@ -32,7 +36,9 @@ public class TurkcellTopHader extends BasePage {
     @Description("Turkcel page fastlogin page açılım.")
     public void fastLoginPageOpen() {
         waitAndScrollClickElement(accountBtn);
+        logger.info("Account butonu tıklandı.");
         waitAndScrollClickElement(fastLoginBtn);
+        logger.info("Fast login butonuna basıldı.");
     }
 
     @Description("Turkcell page arama sayfası.")
@@ -41,13 +47,13 @@ public class TurkcellTopHader extends BasePage {
         try {
             waitAndScrollClickElement(searchBtn);
             waitAndScrollClickElement(searchHeader);
-            logInfo("Aramaq butonu ve arama alanına tıklandı.");
+            logger.info("Aramaq butonu ve arama alanına tıklandı.");
             searchHeader.sendKeys(baseVariable.searchingString);
             searchHeader.sendKeys(Keys.ENTER);
-            logInfo("Aranacak öge sendKeys edildi ve enter tuşuna basıldı.");
+            logger.info("Aranacak öge sendKeys edildi ve enter tuşuna basıldı.");
 
         } catch (ElementNotInteractableException e) {
-            logFatal(" Arama alanına text gönderirken sıkıntı oluştu. ");
+            Assert.fail(" Arama alanına text gönderirken sıkıntı oluştu. ");
         }
     }
 
@@ -55,12 +61,12 @@ public class TurkcellTopHader extends BasePage {
     public void selectCategory() {
         try {
             hoverElement(pasajDropMenu);
-            logInfo("Drop menü üzerine hover edildi.");
+            logger.info("Drop menü üzerine hover edildi.");
             waitAndScrollClickElement(dropDownComputerTablet);
-            logInfo("Kategori seçildi.");
+            logger.info("Kategori seçildi.");
 
         } catch (Exception e) {
-            logError("Category seçilirken hata oluştu.");
+            Assert.fail("Category seçilirken hata oluştu.");
         }
     }
 

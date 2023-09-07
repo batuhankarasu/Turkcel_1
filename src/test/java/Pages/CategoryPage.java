@@ -2,15 +2,20 @@ package Pages;
 
 import Base.BasePage;
 import jdk.jfr.Description;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 public class CategoryPage extends BasePage {
 
     public CategoryPage(WebDriver driver) {
         super(driver);
     }
+    Logger logger = LogManager.getLogger();
+
 
     @FindBy(xpath = "//h1[contains(text(),'Bilgisayar-Tablet')]")
     public WebElement categoryTitle;
@@ -18,11 +23,11 @@ public class CategoryPage extends BasePage {
     @Description("bilgisayar tablet sayfasın geldiğini kontrol eder.")
     public void verifyCategoryTitle() {
         waitExpectedUrl("https://www.turkcell.com.tr/pasaj/bilgisayar-tablet?place=menu");
-        logInfo("Url doğrulandı.");
+        logger.info("Url doğrulandı.");
         if (isElementVisible(categoryTitle)) {
-            logInfo("Bilgisayar-Tablet başlıgı görüldü.");
+            logger.info("Bilgisayar-Tablet başlıgı görüldü.");
         } else {
-            logError("Bilgisayar-Tablet başlıgı gorülemedi");
+            Assert.fail("Bilgisayar-Tablet başlıgı gorülemedi");
         }
     }
 }

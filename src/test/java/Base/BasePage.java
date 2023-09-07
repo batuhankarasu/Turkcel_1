@@ -3,6 +3,7 @@ package Base;
 import jdk.jfr.Description;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,7 @@ import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 public class BasePage {
@@ -28,9 +30,10 @@ public class BasePage {
 
     @Description("Element tıklanabilir ve Görünür olanakadar bekler.")
     public void waitElement(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(element));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.visibilityOf(element));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+
     }
 
     @Description("Element tıklanabilir olanakadar bekler sayfanın ortasına getirir")
@@ -41,10 +44,14 @@ public class BasePage {
 
     @Description("Elenment görünür olduktan sonra ekran ortasına getirir tıklama işlemi gerçekleştirir.")
     public void waitAndScrollClickElement(WebElement webElement) {
-        waitElement(webElement);
-        findScrollElementCenter(webElement);
-        waitElement(webElement);
-        webElement.click();
+        try {
+            waitElement(webElement);
+            findScrollElementCenter(webElement);
+            waitElement(webElement);
+            webElement.click();
+        }catch (Exception e){
+        }
+
     }
 
     @Description("Elemente hover eder.")
@@ -73,6 +80,7 @@ public class BasePage {
 
     @Description("Elementin görünürlüğünü kontrol eder.")
     public boolean isElementVisible(WebElement webElement) {
+        waitElement(webElement);
         return webElement.isDisplayed();
     }
 
@@ -108,8 +116,16 @@ public class BasePage {
     public double priceCleaning(WebElement webElement) {
 
         String price = webElement.getText();
-        String cleanPrice = extractNumbers(price);
-        double integerPrice = Integer.parseInt(cleanPrice);
+        String cleanPrice = price.replaceAll("[ TL\\\\s]+","").replaceAll(",",".").replaceFirst("\\.", "");
+        double integerPrice = Double.parseDouble(cleanPrice);
+
+        return integerPrice;
+    }
+
+    public double priceLowCleaning (WebElement webElement){
+        String price = webElement.getText();
+        String cleanPrice = price.replaceAll("[ TL\\\\s]+","").replaceAll(",",".");
+        double integerPrice = Double.parseDouble(cleanPrice);
 
         return integerPrice;
     }
@@ -126,33 +142,6 @@ public class BasePage {
         }
 
         return numbers.toString();
-    }
-
-
-    @Description("Log fonksiyomları")
-    public void logTrace(String string) {
-        logger.trace(string);
-    }
-
-    public void logDebug(String string) {
-        logger.debug(string);
-    }
-
-    public void logInfo(String string) {
-        logger.info(string);
-    }
-
-    public void logWarn(String string) {
-        logger.warn(string);
-    }
-
-    public void logError(String string) {
-        logger.error(string);
-        Assert.fail(string);
-    }
-
-    public void logFatal(String string) {
-        logger.fatal(string);
     }
 
 

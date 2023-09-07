@@ -2,10 +2,13 @@ package Pages;
 
 import Base.BasePage;
 import jdk.jfr.Description;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +19,8 @@ public class HomePage extends BasePage {
     public HomePage(WebDriver driver) {
         super(driver);
     }
+    Logger logger = LogManager.getLogger();
+
 
     private By populeCategory = By.xpath("//span[contains(@class,'m-p-ts__tab-item__text')]");
     private By popularActiveCategoryProducts = By.xpath("//div[@class=\"m-tab__pane m-tab__pane--active\"]//a[@data-product-id]\n");
@@ -38,12 +43,15 @@ public class HomePage extends BasePage {
 
 
         waitAndScrollClickElement(turkcellTopHader.pasajDropMenu);
+        logger.info("Menü seçildi.");
         String expectedTitle = webElement.getText();
         waitAndScrollClickElement(webElement);
+        logger.info("Elementin texti alınıp tıklandı.");
         waitElement(pasajAllProductsPage.pageTopCategoryName);
         String pagename = pasajAllProductsPage.pageTopCategoryName.getText();
+        logger.info("Sayfa başığı kontrol edildi. İstenilen sayfaya gidildi.");
         if (!(pagename.equals(expectedTitle))) {
-            logError("Sayfa adı doğru değil.Yanlış sayfaya gidildi ");
+            Assert.fail("Sayfa adı doğru değil.Yanlış sayfaya gidildi ");
         }
 
     }
@@ -55,22 +63,22 @@ public class HomePage extends BasePage {
             findScrollElementCenter(activeTabPopulerCategory);
             waitScrollElement(popularDevicesText);
             if (!activeTabPopulerCategory.getText().equals("Cep Telefonu-Aksesuar") || !(populeCategoryList.size() > 1)) {
-                logError("Aktif tab cep telefonu ve birden fazla kategori geldiği kontrol edildi.");
+                Assert.fail("Aktif tab cep telefonu ve birden fazla kategori geldiği kontrol edildi.");
             }
 
             if (!activeProduct.getAttribute("data-keyword").equals("Cep Telefonu-Aksesuar")) {
-                logError("Aktif tab cep telefonu ve aksesuarlar oldugu halde ürünler cep telefonu ve aksesuarlar ile ilgili değildir.");
+                Assert.fail("Aktif tab cep telefonu ve aksesuarlar oldugu halde ürünler cep telefonu ve aksesuarlar ile ilgili değildir.");
             }
 
             populeCategoryList.get(1).click();
             TimeUnit.SECONDS.sleep(2);
             if (!activeProduct.getAttribute("data-keyword").equals(populeCategoryList.get(1).getText())) {
-                logError("Aktif Bilgisayar-Tablet oldugu halde ürünler Bilgisayar-Tablet ile ilgili değildir.");
+                Assert.fail("Aktif Bilgisayar-Tablet oldugu halde ürünler Bilgisayar-Tablet ile ilgili değildir.");
             }
-
+            logger.info("Aktif popüler kategori  tabına göre ürünler değişti. ");
 
         } catch (Exception e) {
-            logFatal("Category seçilirken hata oluştu.");
+            Assert.fail("Category seçilirken hata oluştu.");
         }
     }
 

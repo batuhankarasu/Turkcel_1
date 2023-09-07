@@ -7,7 +7,7 @@ public class BaseVariable extends BasePage {
         super(driver);
     }
 
-    public String cellNumber = "5355500531";
-    public String password = "Test2022";
+    public String cellNumber = "5396576472";
+    public String password = "147741aS@";
     public String searchingString = "süpürge";
 }

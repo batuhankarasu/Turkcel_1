@@ -2,6 +2,8 @@ package Pages;
 
 import Base.BasePage;
 import jdk.jfr.Description;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,6 +12,7 @@ public class ProductPage extends BasePage {
     public ProductPage(WebDriver driver) {
         super(driver);
     }
+    Logger logger = LogManager.getLogger();
 
 
     @FindBy(xpath = "//h1[@class=\" \"]")
@@ -36,6 +39,7 @@ public class ProductPage extends BasePage {
     public void nonLoginAddBasket() {
         waitInstalmentPopup();
         waitAndScrollClickElement(addToBasketBtn);
+        logger.info("Sepete ekleme butonuna tıklandı.");
         waitAndScrollClickElement(goNonLoginBtn);
 
     }
@@ -45,6 +49,7 @@ public class ProductPage extends BasePage {
         LoginWindow loginWindow = new LoginWindow(driver);
 
         waitAndScrollClickElement(addToBasketBtn);
+        logger.info("Sepete ekleme butonuna tıklandı.");
         waitAndScrollClickElement(goLoginBtn);
         loginWindow.fastLoginPageInformationRefill();
 
