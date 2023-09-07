@@ -41,9 +41,8 @@ public class HomePage extends BasePage {
         TurkcellTopHader turkcellTopHader = new TurkcellTopHader(driver);
         PasajAllProductsPage pasajAllProductsPage = new PasajAllProductsPage(driver);
 
-
         waitAndScrollClickElement(turkcellTopHader.pasajDropMenu);
-        logger.info("Menü seçildi.");
+        logger.info("Pasaj ikonuna tıklandı.");
         String expectedTitle = webElement.getText();
         waitAndScrollClickElement(webElement);
         logger.info("Elementin texti alınıp tıklandı.");

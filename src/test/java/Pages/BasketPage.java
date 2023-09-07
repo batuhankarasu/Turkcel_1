@@ -39,14 +39,12 @@ public class BasketPage extends BasePage {
 
 
     @Description("Sepet simge numarası değişimi kontroledilir.")
-    public boolean checkBasketUpProductNumber() {
+    public void checkBasketUpProductNumber() {
         double productNumber = priceCleaning(basketProductNumber);
         if (!((productNumber > 0))) {
             Assert.fail("ürün sepete eklenmedi.");
-            return false;
         }
         logger.info("Ürün sepete eklendi.");
-        return true;
     }
 
     @Description("Ürün atıktansonra sepet simgesi sepet fiyatının artışını kontrol eder.")

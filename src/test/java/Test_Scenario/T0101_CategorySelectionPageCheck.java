@@ -1,5 +1,6 @@
 package Test_Scenario;
 
+import Base.BaseVariable;
 import Driver.DriverMethods;
 import Pages.CategoryPage;
 import Pages.TurkcellTopHader;
@@ -20,10 +21,11 @@ public class T0101_CategorySelectionPageCheck extends DriverMethods {
 
         TurkcellTopHader turkcellTopHader = new TurkcellTopHader(driver);
         CategoryPage categoryPage = new CategoryPage(driver);
+        BaseVariable baseVariable = new BaseVariable(driver);
 
 
         turkcellTopHader.selectCategory();
-        categoryPage.verifyCategoryTitle();
+        categoryPage.verifyCategoryTitle(baseVariable.computerTabletUrl);
     }
 
 

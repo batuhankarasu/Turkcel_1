@@ -6,8 +6,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.net.Urls;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+
+import java.net.URL;
 
 public class CategoryPage extends BasePage {
 
@@ -21,8 +24,12 @@ public class CategoryPage extends BasePage {
     public WebElement categoryTitle;
 
     @Description("bilgisayar tablet sayfasın geldiğini kontrol eder.")
-    public void verifyCategoryTitle() {
-        waitExpectedUrl("https://www.turkcell.com.tr/pasaj/bilgisayar-tablet?place=menu");
+    public void verifyCategoryTitle(String url) {
+        waitExpectedUrl(url);
+        String currentURL = driver.getCurrentUrl();
+        if (!(url.equals(currentURL))){
+            Assert.fail("Doğru bir url açılmadı");
+        }
         logger.info("Url doğrulandı.");
         if (isElementVisible(categoryTitle)) {
             logger.info("Bilgisayar-Tablet başlıgı görüldü.");

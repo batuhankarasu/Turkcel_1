@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.io.Console;
+
 
 public class DriverMethods {
     protected WebDriver driver;
@@ -13,7 +15,7 @@ public class DriverMethods {
     @BeforeMethod
     public void getDriver() {
         ChromeOptions chromeOptions = new ChromeOptions();
-       // chromeOptions.addArguments("--headless");
+        //chromeOptions.addArguments("--headless");
         //chromeOptions.addArguments("--window-size=1920x1080");
         //chromeOptions.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(chromeOptions);
