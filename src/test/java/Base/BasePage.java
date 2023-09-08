@@ -50,6 +50,7 @@ public class BasePage {
             waitElement(webElement);
             webElement.click();
         }catch (Exception e){
+            Assert.fail("Wait and scroll yaparken hata oluştu.");
         }
 
     }
@@ -80,8 +81,11 @@ public class BasePage {
 
     @Description("Elementin görünürlüğünü kontrol eder.")
     public boolean isElementVisible(WebElement webElement) {
-        waitElement(webElement);
-        return webElement.isDisplayed();
+        try {
+            return webElement.isDisplayed();
+        }catch (Exception e){
+            return false;
+        }
     }
 
     @Description("Yazdırma işlemini gerçekleştirir.")
@@ -116,7 +120,7 @@ public class BasePage {
     public double priceCleaning(WebElement webElement) {
 
         String price = webElement.getText();
-        String cleanPrice = price.replaceAll("[ TL\\\\s]+","").replaceAll(",",".").replaceFirst("\\.", "");
+        String cleanPrice = price.replaceAll("[ TL\\\\s]+","").replaceFirst("\\.", "").replaceAll(",",".");
         double integerPrice = Double.parseDouble(cleanPrice);
 
         return integerPrice;

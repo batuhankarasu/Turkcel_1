@@ -28,7 +28,7 @@ public class CategoryPage extends BasePage {
         waitExpectedUrl(url);
         String currentURL = driver.getCurrentUrl();
         if (!(url.equals(currentURL))){
-            Assert.fail("Doğru bir url açılmadı");
+            Assert.fail("Doğru bir url açılmadı.");
         }
         logger.info("Url doğrulandı.");
         if (isElementVisible(categoryTitle)) {

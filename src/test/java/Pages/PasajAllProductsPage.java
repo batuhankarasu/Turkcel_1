@@ -47,13 +47,12 @@ public class PasajAllProductsPage extends BasePage {
 
     @Description("Ürünler arasında rastgele seçilen ürünle gelen ürünün aynı olup olmaamsı.")
     public void selectCheckRandomProduct() {
-        PasajAllProductsPage pasajAllProductsPage = new PasajAllProductsPage(driver);
         ProductPage productPage = new ProductPage(driver);
 
-        WebElement product = pasajAllProductsPage.randomProduct();
+        WebElement product = randomProduct();
         logger.info("Random ürün seçildi.");
         String advertName = product.getText();
-        pasajAllProductsPage.waitAndScrollClickElement(product);
+        waitAndScrollClickElement(product);
         logger.info("ürün texti alındı ve tıklandı.");
         String productPageName = productPage.productPageProductName.getText();
         if (!(advertName.equals(productPageName))) {
@@ -109,16 +108,16 @@ public class PasajAllProductsPage extends BasePage {
         for (int i = 0; i < lowestPriceOrderProductList.size(); i++) {
 
             if (lowestPriceOrderProductList.get(i).findElements(By.xpath("./div[@class=\"m-p-pc__price m-p-pc__price--primary\"]//div")).size() == 2) {
-                double as = priceLowCleaning(lowestPriceOrderProductList.get(i).findElement(By.xpath(".//div[@class=\"m-p-pc__price m-p-pc__price--dark\"]")));
-                productPrice.add(as);
+                double discountPrice = priceCleaning(lowestPriceOrderProductList.get(i).findElement(By.xpath(".//div[@class=\"m-p-pc__price m-p-pc__price--dark\"]")));
+                productPrice.add(discountPrice);
             } else {
                 if (lowestPriceOrderProductList.get(i).findElements(By.xpath(".//div")).size() == 2) {
-                    double asbc = priceLowCleaning(lowestPriceOrderProductList.get(i).findElement(By.xpath(".//div[@class=\"m-p-pc__price m-p-pc__price--secondary m-p-pc__price--dark\"]")));
-                    productPrice.add(asbc);
+                    double installmentPrice = priceCleaning(lowestPriceOrderProductList.get(i).findElement(By.xpath(".//div[@class=\"m-p-pc__price m-p-pc__price--secondary m-p-pc__price--dark\"]")));
+                    productPrice.add(installmentPrice);
                 } else {
 
-                    double bs = priceLowCleaning(lowestPriceOrderProductList.get(i));
-                    productPrice.add(bs);
+                    double price = priceCleaning(lowestPriceOrderProductList.get(i));
+                    productPrice.add(price);
                 }
             }
         }
@@ -145,16 +144,16 @@ public class PasajAllProductsPage extends BasePage {
         for (int i = 0; i < highestPriceOrderProductList.size(); i++) {
 
             if (highestPriceOrderProductList.get(i).findElements(By.xpath("./div[@class=\"m-p-pc__price m-p-pc__price--primary\"]//div")).size() == 2) {
-                double as = priceCleaning(highestPriceOrderProductList.get(i).findElement(By.xpath(".//div[@class=\"m-p-pc__price m-p-pc__price--dark\"]")));
-                productPrice.add(as);
+                double discountPrice = priceCleaning(highestPriceOrderProductList.get(i).findElement(By.xpath(".//div[@class=\"m-p-pc__price m-p-pc__price--dark\"]")));
+                productPrice.add(discountPrice);
             } else {
                 if (highestPriceOrderProductList.get(i).findElements(By.xpath(".//div")).size() == 2) {
-                    double asbc = priceCleaning(highestPriceOrderProductList.get(i).findElement(By.xpath(".//div[@class=\"m-p-pc__price m-p-pc__price--secondary m-p-pc__price--dark\"]")));
-                    productPrice.add(asbc);
+                    double installmentPrice = priceCleaning(highestPriceOrderProductList.get(i).findElement(By.xpath(".//div[@class=\"m-p-pc__price m-p-pc__price--secondary m-p-pc__price--dark\"]")));
+                    productPrice.add(installmentPrice);
                 } else {
 
-                    double bs = priceCleaning(highestPriceOrderProductList.get(i));
-                    productPrice.add(bs);
+                    double price = priceCleaning(highestPriceOrderProductList.get(i));
+                    productPrice.add(price);
                 }
             }
         }
